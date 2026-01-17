@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verde NYC - Spanish Luxury</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* ------------------- CSS STYLES START ------------------- */
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #050505;
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR STYLES --- */
+        .navbar-wrapper {
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            padding-top: 10px; /* Thoda kam padding taake logo fit aaye */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .top-deco-line {
+            height: 1px;
+            width: 90%;
+            margin: 0 auto 15px auto;
+            background: linear-gradient(90deg, transparent, #29a0b1, transparent);
+            opacity: 0.6;
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 10px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .nav-group { flex: 1; display: flex; align-items: center; }
+        .nav-group.left { justify-content: flex-end; padding-right: 30px; }
+        .nav-group.right { justify-content: flex-start; padding-left: 30px; }
+        .nav-group ul { list-style: none; display: flex; align-items: center; gap: 25px; }
+        .nav-group li { position: relative; }
+
+        .nav-group a {
+            text-decoration: none;
+            color: #bbb;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding-bottom: 5px;
+            transition: all 0.4s ease;
+        }
+
+        .nav-group a:hover, .nav-group a.active {
+            color: #fff;
+            text-shadow: 0 0 10px #29a0b1, 0 0 20px #29a0b1;
+        }
+
+        .nav-group a::before {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -2px;
+            left: 50%;
+            background-color: #29a0b1;
+            box-shadow: 0 0 10px #29a0b1;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-group a:hover::before, .nav-group a.active::before { width: 100%; }
+
+        .nav-group li:not(:last-child):not(.no-sep)::after {
+            content: "|"; position: absolute; right: -15px; color: #444; font-size: 10px; top: 1px;
+        }
+
+        /* LOGO STYLE UPDATED */
+        .logo-center { 
+            text-align: center; 
+            position: relative; 
+            cursor: pointer; 
+            padding: 0 10px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-center img {
+            height: 60px; /* Logo ki height control karne ke liye */
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 5px rgba(41, 160, 177, 0.3)); /* Thoda glow */
+            transition: transform 0.3s ease;
+        }
+
+        .logo-center img:hover {
+            transform: scale(1.05);
+        }
+
+        .contact-item a { display: flex; align-items: center; gap: 8px; color: #fff !important; }
+        .whatsapp-icon { color: #25D366; font-size: 16px; text-shadow: 0 0 10px rgba(37, 211, 102, 0.4); }
+        .flag-icon { width: 20px; opacity: 0.8; }
+
+        @media (max-width: 900px) {
+            .main-nav { flex-direction: column; gap: 15px; }
+            .logo-center { order: -1; }
+            .nav-group { justify-content: center !important; padding: 0 !important; width: 100%; }
+            .nav-group ul { flex-wrap: wrap; justify-content: center; }
+            .nav-group li:not(:last-child)::after { display: none; }
+        }
+
+        /* --- HERO SECTION --- */
+        .spanish-hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1544148103-0773bf10d330?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            z-index: 1;
+            filter: brightness(0.6) contrast(1.1);
+            animation: slowZoom 20s infinite alternate;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+        }
+
+        .hero-content-box {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 50px 70px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            max-width: 800px;
+            animation: fadeUp 1.5s ease-out;
+        }
+
+        .hero-content-box::before, .hero-content-box::after {
+            content: ""; position: absolute; width: 40px; height: 40px;
+            border: 2px solid #d4af37;
+            transition: all 0.5s ease;
+        }
+        .hero-content-box::before { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+        .hero-content-box::after { bottom: 10px; right: 10px; border-left: none; border-top: none; }
+        
+        .hero-content-box:hover::before, .hero-content-box:hover::after {
+            width: 100%; height: 100%; opacity: 0.1;
+        }
+
+        .spanish-tag {
+            font-family: 'Great Vibes', cursive;
+            font-size: 30px;
+            color: #d4af37;
+            margin-bottom: 10px;
+            display: block;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .main-headline {
+            font-family: 'Cinzel', serif;
+            font-size: 60px;
+            color: #fff;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .highlight-word {
+            color: #29a0b1;
+            font-style: italic;
+            font-family: 'Playfair Display', serif;
+            text-transform: capitalize;
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            color: #ddd;
+            font-weight: 300;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            letter-spacing: 1px;
+            max-width: 600px;
+            margin-left: auto; margin-right: auto;
+        }
+
+        .hero-buttons { display: flex; justify-content: center; gap: 20px; }
+
+        .btn-primary {
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #1a1a1a, #29a0b1);
+            color: white;
+            border: 1px solid #29a0b1;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        .btn-primary:hover { box-shadow: 0 0 20px #29a0b1; transform: translateY(-3px); }
+
+        .btn-secondary {
+            padding: 15px 40px;
+            background: transparent;
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        .btn-secondary:hover { background: #d4af37; color: #000; box-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
+
+        @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.1); } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ----------------------------------------------- */
+        /* --------- SECTIONS --------- */
+        /* ----------------------------------------------- */
+
+        .section-padding { padding: 100px 20px; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-subtitle {
+            font-family: 'Great Vibes', cursive; color: #d4af37; font-size: 35px;
+            display: block; margin-bottom: 10px;
+        }
+        .section-title {
+            font-family: 'Cinzel', serif; font-size: 40px; color: #fff; text-transform: uppercase; letter-spacing: 3px;
+        }
+        .section-title span { color: #29a0b1; }
+
+        /* ABOUT SECTION */
+        .about-section {
+            background-color: #0a0a0a;
+            display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+        }
+        .about-container {
+            max-width: 1200px; display: flex; gap: 50px; align-items: center;
+        }
+        .about-image { flex: 1; position: relative; }
+        .about-image img {
+            width: 100%; border-radius: 5px; border: 1px solid #333;
+            box-shadow: 20px 20px 0px rgba(41, 160, 177, 0.1);
+        }
+        .about-content { flex: 1; text-align: left; }
+        .about-content p { color: #aaa; line-height: 1.8; margin-bottom: 20px; font-size: 15px; }
+
+        /* MENU SECTION */
+        .menu-section {
+            background: url('https://www.transparenttextures.com/patterns/cubes.png'), #111;
+        }
+        .menu-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px; max-width: 1200px; margin: 0 auto;
+        }
+        .menu-card {
+            background: #1a1a1a; padding: 30px; border: 1px solid #333;
+            transition: 0.3s; position: relative; overflow: hidden;
+        }
+        .menu-card:hover { border-color: #d4af37; transform: translateY(-5px); }
+        .menu-category {
+            color: #d4af37; font-family: 'Cinzel', serif; font-size: 20px; border-bottom: 1px solid #333;
+            padding-bottom: 15px; margin-bottom: 20px;
+        }
+        .menu-item { display: flex; justify-content: space-between; margin-bottom: 15px; border-bottom: 1px dashed #333; padding-bottom: 5px; }
+        .item-name { color: #eee; font-weight: 600; font-size: 14px; }
+        .item-price { color: #29a0b1; font-weight: bold; }
+        .item-desc { font-size: 12px; color: #777; margin-top: -10px; margin-bottom: 15px; display: block; font-style: italic; }
+
+        /* BAR SECTION */
+        .bar-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-attachment: fixed; background-size: cover; background-position: center;
+            text-align: center; color: white;
+        }
+        .cocktail-grid {
+            display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 40px;
+        }
+        .cocktail-item {
+            background: rgba(0,0,0,0.6); padding: 20px; border: 1px solid #d4af37;
+            width: 250px; backdrop-filter: blur(5px);
+        }
+        .cocktail-item h3 { font-family: 'Playfair Display', serif; color: #fff; margin-bottom: 10px; }
+        .cocktail-item p { color: #aaa; font-size: 12px; }
+
+        /* GALLERY SECTION */
+        .gallery-section { background-color: #050505; }
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px; max-width: 1400px; margin: 0 auto;
+        }
+        .gallery-item { position: relative; overflow: hidden; height: 300px; cursor: pointer; }
+        .gallery-item img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;
+        }
+        .gallery-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(41, 160, 177, 0.7); /* Teal Overlay */
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-icon { color: #fff; font-size: 30px; border: 2px solid #fff; padding: 10px; border-radius: 50%; }
+
+        /* FOOTER UPDATED */
+        .footer-section {
+            background-color: #1a1a1a; /* Changed to Lighter Dark Grey */
+            border-top: 1px solid #333; 
+            padding: 60px 20px;
+        }
+        .footer-content {
+            display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 40px;
+        }
+        .footer-col { flex: 1; min-width: 250px; }
+        .footer-col h4 { color: #d4af37; font-family: 'Cinzel', serif; margin-bottom: 20px; font-size: 18px; }
+        .footer-col p, .footer-col a { color: #ccc; font-size: 14px; line-height: 2; display: block; text-decoration: none; transition: 0.3s; }
+        .footer-col a:hover { color: #29a0b1; }
+        
+        /* SOCIAL ICONS UPDATED */
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .social-icons a { 
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        .social-icons a:hover {
+            background-color: #29a0b1;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(41, 160, 177, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .about-container { flex-direction: column; }
+            .section-title { font-size: 30px; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .social-icons { justify-content: center; }
+            .logo-center { justify-content: center; margin-bottom: 10px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR (UPDATED WITH IMAGE LOGO) -->
+    <header class="navbar-wrapper">
+        <div class="top-deco-line"></div>
+        <nav class="main-nav">
+            <div class="nav-group left">
+                <ul>
+                    <li class="contact-item no-sep">
+                        <a href="https://wa.me/16464068763">
+                            <i class="fab fa-whatsapp whatsapp-icon"></i> +1 646 406 8763
+                        </a>
+                    </li>
+                    <li class="no-sep" style="width: 20px;"></li> 
+                    <li><a href="#menu">Dinner Party</a></li>
+                    <li><a href="#menu">Menu</a></li>
+                </ul>
+            </div>
+            
+            <!-- LOGO IMAGE HERE -->
+            <div class="logo-center">
+                <!-- IMPORTANT: Make sure your image file is named logo.png or update this src -->
+                <img src="WhatsApp Image 2026-01-17 at 2.58.46 PM (7).jpeg" alt="Verde NYC Logo">
+            </div>
+
+            <div class="nav-group right">
+                <ul>
+                    <li><a href="#about">Restaurant</a></li>
+                    <li><a href="#bar" class="active">Bar</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li class="no-sep" style="margin-left: 15px;">
+                        <a href="#"><img src="https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg" alt="UK Flag" class="flag-icon"></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION (UNCHANGED) -->
+    <section class="spanish-hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content-box">
+            <span class="spanish-tag">WELCOME TO VERDE</span>
+            <h1 class="main-headline">
+                Authentic NEW YORK <br>
+                <span class="highlight-word">Flavors & Soul</span>
+            </h1>
+            <p class="hero-desc">
+                Immerse yourself in a culinary journey through the heart of Spain. 
+                From classic Tapas to our legendary wine collection, experience the precious taste of tradition.
+            </p>
+            <div class="hero-buttons">
+                <button class="btn-primary">Book A Table</button>
+                <button class="btn-secondary">View Menu</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTIONS -->
+
+    <!-- 1. OUR STORY / RESTAURANT SECTION -->
+    <section id="about" class="section-padding about-section">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="WhatsApp Image 2026-01-17 at 2.58.46 PM (6).jpeg" alt="Restaurant Interior">
+            </div>
+            <div class="about-content">
+                <span class="section-subtitle">Our Story</span>
+                <h2 class="section-title">The Spanish <span>Soul</span></h2>
+                <p>Located in the heart of New York City, Verde NYC brings the vibrant spirit of Spanish dining to the modern world. We believe that dining is not just about food—it is about the "Sobremesa," the precious time spent talking after a meal.</p>
+                <p>Our chefs blend traditional recipes with a touch of NYC luxury, creating dishes that are both nostalgic and exciting.</p>
+                <button class="btn-secondary">Read More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. MENU / DINNER PARTY SECTION -->
+    <section id="menu" class="section-padding menu-section">
+        <div class="section-header">
+            <span class="section-subtitle">Taste the Legend</span>
+            <h2 class="section-title">Curated <span>Menu</span></h2>
+        </div>
+
+        <div class="menu-grid">
+            <!-- Column 1 -->
+            <div class="menu-card">
+                <h3 class="menu-category">Tapas</h3>
+                <div class="menu-item">
+                    <span class="item-name">Gambas al Ajillo</span>
+                    <span class="item-price">$18</span>
+                </div>
+                <span class="item-desc">Shrimp sautéed in garlic and chili oil.</span>
+
+                <div class="menu-item">
+                    <span class="item-name">Patatas Bravas</span>
+                    <span class="item-price">$12</span>
+                </div>
+                <span class="item-desc">Crispy potatoes with spicy tomato sauce.</span>
+
+                <div class="menu-item">
+                    <span class="item-name">Jamón Ibérico</span>
+                    <span class="item-price">$35</span>
+                </div>
+                <span class="item-desc">Premium acorn-fed cured ham.</span>
+            </div>
+
+            <!-- Column 2 -->
+            <div class="menu-card">
+                <h3 class="menu-category">Mains</h3>
+                <div class="menu-item">
+                    <span class="item-name">Paella Valenciana</span>
+                    <span class="item-price">$45</span>
+                </div>
+                <span class="item-desc">Saffron rice, chicken, rabbit, beans.</span>
+
+                <div class="menu-item">
+                    <span class="item-name">Grilled Octopus</span>
+                    <span class="item-price">$32</span>
+                </div>
+                <span class="item-desc">Galician style with paprika and olive oil.</span>
+
+                <div class="menu-item">
+                    <span class="item-name">Lamb Chops</span>
+                    <span class="item-price">$40</span>
+                </div>
+                <span class="item-desc">Herb crusted with rosemary reduction.</span>
+            </div>
+            
+            <!-- Column 3 -->
+            <div class="menu-card">
+                <h3 class="menu-category">Dinner Party</h3>
+                <div class="menu-item">
+                    <span class="item-name">Chef's Tasting</span>
+                    <span class="item-price">$120</span>
+                </div>
+                <span class="item-desc">7-course journey through Spain.</span>
+
+                <div class="menu-item">
+                    <span class="item-name">Wine Pairing</span>
+                    <span class="item-price">+$60</span>
+                </div>
+                <span class="item-desc">Perfectly matched vintage wines.</span>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 40px;">
+            <button class="btn-primary">View Full Menu</button>
+        </div>
+    </section>
+
+    <!-- 3. BAR SECTION -->
+    <section id="bar" class="section-padding bar-section">
+        <span class="section-subtitle">Liquid Gold</span>
+        <h2 class="section-title">The <span>Bar</span></h2>
+        <p style="max-width: 600px; margin: 0 auto; color: #ddd; margin-bottom: 40px;">
+            Our cellar houses over 500 varieties of wine, selected from the finest vineyards. Experience cocktails crafted with precision and passion.
+        </p>
+
+        <div class="cocktail-grid">
+            <div class="cocktail-item">
+                <h3>Sangria Royal</h3>
+                <p>Red wine, brandy, fresh fruits, cinnamon</p>
+            </div>
+            <div class="cocktail-item">
+                <h3>Verde Gin</h3>
+                <p>Botanical gin, cucumber tonic, basil leaf</p>
+            </div>
+            <div class="cocktail-item">
+                <h3>Espresso Martini</h3>
+                <p>Vodka, Kahlua, fresh brewed espresso</p>
+            </div>
+        </div>
+        <br><br>
+        <button class="btn-primary">Explore Wine List</button>
+    </section>
+
+    <!-- 4. GALLERY SECTION -->
+    <section id="gallery" class="section-padding gallery-section">
+        <div class="section-header">
+            <span class="section-subtitle">Moments</span>
+            <h2 class="section-title">Photo <span>Gallery</span></h2>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="WhatsApp Image 2026-01-17 at 2.58.45 PM (5).jpeg" alt="Food">
+                <div class="gallery-overlay"><i class="fas fa-search gallery-icon"></i></div>
+            </div>
+            <div class="gallery-item">
+                <img src="WhatsApp Image 2026-01-17 at 2.58.45 PM (3).jpeg" alt="Drinks">
+                <div class="gallery-overlay"><i class="fas fa-search gallery-icon"></i></div>
+            </div>
+            <div class="gallery-item">
+                <img src="WhatsApp Image 2026-01-17 at 2.58.46 PM (1).jpeg" alt="People">
+                <div class="gallery-overlay"><i class="fas fa-search gallery-icon"></i></div>
+            </div>
+            <div class="gallery-item">
+                <img src="WhatsApp Image 2026-01-17 at 2.58.46 PM (3).jpeg" alt="Atmosphere">
+                <div class="gallery-overlay"><i class="fas fa-search gallery-icon"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. FOOTER / CONTACT (UPDATED) -->
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="footer-col">
+                <div class="logo-center" style="justify-content: flex-start; margin-bottom: 20px;">
+                    <!-- Footer Logo Image -->
+                    <img src="WhatsApp Image 2026-01-17 at 2.58.46 PM (7).jpeg" alt="Verde NYC Logo" style="height: 60px;">
+                </div>
+                <p>An unforgettable experience of Spanish culture and fine dining in New York.</p>
+                
+                <!-- Social Icons Updated -->
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <p>123 West Street, New York, NY 10001</p>
+                <p>+1 646 406 8763</p>
+                <p>reservations@verdenyc.com</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Opening Hours</h4>
+                <p>Mon - Thu: 5pm - 11pm</p>
+                <p>Fri - Sat: 4pm - 1am</p>
+                <p>Sun: 4pm - 11pm</p>
+            </div>
+        </div>
+        <div style="text-align: center; color: #555; margin-top: 50px; font-size: 12px; border-top: 1px solid #333; padding-top: 20px;">
+            &copy; 2024 Verde NYC. All Rights Reserved.
+        </div>
+    </footer>
+
+</body>
+</html>
